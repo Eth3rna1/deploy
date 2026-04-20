@@ -6,7 +6,7 @@ A lightweight, configurable CLI tool for building, organizing, and deploying loc
 
 **Deploy** is a simple automation tool that compiles source code and moves the resulting binary (and optionally the source) into structured directories based on a configuration file.
 
-It’s designed to replace repetitive shell scripts with a consistent, reusable workflow.
+It's designed to replace repetitive shell scripts with a consistent, reusable workflow.
 
 ## Features
 
@@ -52,6 +52,52 @@ deploy main.go
 Deploy uses a `.deployfile` in the project root.
 
 If one does not exist, it will be automatically created and initialized.
+
+### Importing Another `.deployfile`
+
+You can import variables from another `.deployfile` using:
+```text
+DEPLOYFILE_LOC=<path-to-other-deployfile>
+```
+
+If `DEPLOYFILE_LOC` is defined, all variables from the referenced file will be loaded and **override any previously defined variables**.
+
+This allows reuse of shared configurations across multiple projects.
+
+**Important:**
+- Variables defined in the imported file take precedence
+- Any variables defined *after* the import may be overwritten
+
+### Boilerplate `.deployfile`
+
+```text
+# Use this variable to import another deployfile
+DEPLOYFILE_LOC=
+
+# if 'DEPLOYFILE_LOC' is defined, then all defined variables
+# within such deployfile will get imported and overwrite any
+# previously defined variables if defined in such deployfile.
+# Everything defined past this comment will get overwritten
+# or defined.
+
+# Location of the global binary directory
+GLOBAL_BIN_DIR=
+
+# Location of the local binary directory
+LOCAL_BIN_DIR=
+
+# Location of the local scripts directory
+SCRIPTS_DIR=
+
+# Location of the base directory of the project
+BASE_DIR=
+
+# The CMD command to compile the project
+COMPILATION_CMD=
+
+# Tells where the binary is located after compiling
+BINARY_LOC=
+```
 
 ### Required Variables
 
