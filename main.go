@@ -60,7 +60,15 @@ func main() {
     if len(args) < 2 {
         fmt.Println("Please provide a <SRC DIR / SRC FILE / BINARY>")
         return
-    }
+    } else if len(args) > 2 {
+		fmt.Println("User provided too many arguments")
+		return
+	}
+
+	if args[1] == "--help" || args[1] == "-h" {
+		fmt.Println("Please refer to: https://github.com/Eth3rna1/deploy")
+		return
+	}
 
     source := args[1]
 
