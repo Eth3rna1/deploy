@@ -55,19 +55,19 @@ DEPLOYFILE_LOC=
 # Location of the global binary directory
 GLOBAL_BIN_DIR=
 
-# Location of the local binary directory
-LOCAL_BIN_DIR=
-
-# Location of the local scripts directory
-SCRIPTS_DIR=
-
 # Location of the base directory of the project
 BASE_DIR=
+
+# Location of the local binary directory relative to BASE_DIR
+LOCAL_BIN_DIR=
+
+# Location of the local scripts directory relative to BASE_DIR
+SCRIPTS_DIR=
 
 # The CMD command to compile the project
 COMPILATION_CMD=
 
-# Tells where the binary is located after compiling
+# Tells where the binary is located after compiling relative to BASE_DIR
 BINARY_LOC=`)
 }
 

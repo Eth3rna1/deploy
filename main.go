@@ -86,7 +86,9 @@ func main() {
         return
     }
 
-    os.Chdir(vars["BASE_DIR"])
+	base_dir := vars["BASE_DIR"]
+
+    os.Chdir(base_dir)
 
     // attempting to compile to a binary
     if err := cmd.Run(vars["COMPILATION_CMD"]); err != nil {
@@ -96,8 +98,6 @@ func main() {
     }
 
     fmt.Println("Compiled binary")
-
-    os.Chdir(cwd)
 
     binary_base_name := filepath.Base(vars["BINARY_LOC"])
 
@@ -118,7 +118,8 @@ func main() {
     if local_bin_dir, ok := vars["LOCAL_BIN_DIR"]; ok {
         // attempting to move to binary to its local bin directory
         new_binary_dest := filepath.Join(local_bin_dir, binary_base_name)
-        if err := cmd.Move(vars["BINARY_LOC"], new_binary_dest); err != nil {
+		binary_loc := filepath.Join(vars["BINARY_LOC"])
+        if err := cmd.Move(binary_loc, new_binary_dest); err != nil {
             fmt.Println("Could not move binary")
             fmt.Println("Reason: ", err)
             return
@@ -130,8 +131,11 @@ func main() {
     // optional variable
     if scripts_dir, ok := vars["SCRIPTS_DIR"]; ok {
         // attempting to move the source entry into the defined SCRIPTS directory
+
+		os.Chdir(cwd); // moving out of the base project directory
+
         source_base_name := filepath.Base(source)
-        new_scripts_dest := filepath.Join(scripts_dir, source_base_name)
+        new_scripts_dest := filepath.Join(base_dir, scripts_dir, source_base_name)
         if err := cmd.Move(source, new_scripts_dest); err != nil {
             fmt.Println("Could not move source to scripts directory")
             fmt.Println("Reason: ", err)
