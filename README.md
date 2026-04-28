@@ -28,7 +28,7 @@ It's designed to replace repetitive shell scripts with a consistent, reusable wo
 Clone the repository and build the binary:
 
 ```bash
-git clone https://github.com/Eth3rna1/deploy
+git clone https://github.com/Eth3rna1/deploy.git
 cd deploy
 go build
 ```
